@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from dj_templates_homework.calculator.views import recipe_view, all_recipies_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('recipies/', all_recipies_view, name='all_recipies'),
+    path('recipe/<recipe_name>/', recipe_view, name='recipe')
 ]

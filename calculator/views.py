@@ -28,3 +28,38 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+def all_recipies_view(request):
+    all_recipies = list(DATA.keys())
+
+
+    context = {
+        'all_recipies': all_recipies
+    }
+
+    return render(request, 'all_recipies.html', context)
+
+
+
+def recipe_view(request, recipe_name):
+    if recipe_name in DATA:
+        data = DATA[recipe_name]
+        servings = request.GET.get('servings', None)
+        if servings:
+            result = dict()
+            for i, v in data.items():
+                new_v = v * int(servings)
+                result[i] = new_v
+
+            context = {
+                'recipe': result
+            }
+        else:
+            context = {
+                'recipe': data
+            }
+
+    else:
+        context = Noned
+    return render(request, 'index.html', context=context)
+
